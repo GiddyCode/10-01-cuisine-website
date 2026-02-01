@@ -25,13 +25,13 @@ export function FloatingCart() {
       <CartSheet>
         <Button
           size="lg"
-          className="bg-primary text-primary-foreground shadow-xl hover:bg-primary/90 hover:shadow-2xl"
+          className="rounded-full bg-accent px-6 py-6 text-white shadow-xl hover:bg-accent/90 hover:shadow-2xl"
         >
           <ShoppingBag className="mr-2 h-5 w-5" />
           <span className="font-semibold">
             {itemCount} {itemCount === 1 ? "item" : "items"}
           </span>
-          <span className="mx-2 text-primary-foreground/50">|</span>
+          <span className="mx-2 text-white/50">|</span>
           <span className="font-bold">{formatPrice(subtotal)}</span>
         </Button>
       </CartSheet>

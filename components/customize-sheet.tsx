@@ -296,13 +296,13 @@ export function CustomizeSheet({ dish, open, onOpenChange }: CustomizeSheetProps
         <div className="border-t pt-4 space-y-4">
           <div className="flex items-center justify-between">
             <span className="text-muted-foreground">Total Price</span>
-            <span className="text-2xl font-bold text-primary">
+            <span className="font-serif text-2xl font-bold text-accent">
               {formatPrice(totalPrice)}
             </span>
           </div>
           <Button
             onClick={handleAddToCart}
-            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+            className="w-full bg-accent text-white hover:bg-accent/90"
             size="lg"
           >
             <Check className="mr-2 h-5 w-5" />

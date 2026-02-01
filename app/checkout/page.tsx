@@ -423,7 +423,7 @@ export default function CheckoutPage() {
                   {/* Pay Button */}
                   <Button
                     type="submit"
-                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                    className="w-full bg-accent text-white hover:bg-accent/90"
                     size="lg"
                     disabled={isProcessing}
                   >

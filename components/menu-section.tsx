@@ -2,14 +2,11 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import { Search, Flame } from "lucide-react";
+import { Search, Star, Heart } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
 import { categories, dishes } from "@/lib/data";
 import type { Dish } from "@/lib/types";
-import { CustomizeSheet } from "./customize-sheet";
+import { CustomizeModal } from "./customize-modal";
 
 function formatPrice(amount: number): string {
   return new Intl.NumberFormat("en-NG", {
@@ -50,16 +47,18 @@ export function MenuSection() {
   }, [selectedCategory, searchQuery]);
 
   return (
-    <section id="menu" className="bg-background py-16 sm:py-24">
+    <section id="menu" className="bg-muted py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center">
-          <h2 className="font-serif text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+            Delicious Picks
+          </p>
+          <h2 className="mt-3 font-serif text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
             Our Menu
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Fresh, homemade African dishes prepared with love and authentic
-            flavors
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            Fresh, homemade African dishes prepared with love and authentic flavors
           </p>
         </div>
 
@@ -72,38 +71,36 @@ export function MenuSection() {
               placeholder="Search dishes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
+              className="bg-card pl-10"
             />
           </div>
         </div>
 
-        {/* Category Pills */}
-        <div className="mt-8 flex flex-wrap justify-center gap-2">
+        {/* Category Tabs */}
+        <div className="mx-auto mt-10 flex flex-wrap justify-center gap-3">
           {categories.map((category) => (
-            <Button
+            <button
               key={category.id}
-              variant={selectedCategory === category.id ? "default" : "outline"}
-              size="sm"
+              type="button"
               onClick={() => setSelectedCategory(category.id)}
-              className={
+              className={`rounded-md border-2 px-6 py-2.5 text-sm font-semibold uppercase tracking-wide transition-all ${
                 selectedCategory === category.id
-                  ? "bg-primary text-primary-foreground"
-                  : ""
-              }
+                  ? "border-accent bg-accent text-white"
+                  : "border-accent/30 bg-card text-foreground hover:border-accent"
+              }`}
             >
-              <span className="mr-1.5">{category.icon}</span>
               {category.name}
-            </Button>
+            </button>
           ))}
         </div>
 
-        {/* Dishes Grid */}
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {/* Dishes List - Two Column Layout */}
+        <div className="mt-12 grid gap-4 lg:grid-cols-2">
           {filteredDishes.map((dish) => (
-            <DishCard
+            <DishListItem
               key={dish.id}
               dish={dish}
-              onCustomize={() => setSelectedDish(dish)}
+              onClick={() => setSelectedDish(dish)}
             />
           ))}
         </div>
@@ -117,9 +114,9 @@ export function MenuSection() {
         )}
       </div>
 
-      {/* Customize Sheet */}
+      {/* Customize Modal */}
       {selectedDish && (
-        <CustomizeSheet
+        <CustomizeModal
           dish={selectedDish}
           open={!!selectedDish}
           onOpenChange={(open) => !open && setSelectedDish(null)}
@@ -129,55 +126,51 @@ export function MenuSection() {
   );
 }
 
-interface DishCardProps {
+interface DishListItemProps {
   dish: Dish;
-  onCustomize: () => void;
+  onClick: () => void;
 }
 
-function DishCard({ dish, onCustomize }: DishCardProps) {
+function DishListItem({ dish, onClick }: DishListItemProps) {
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg">
-      <div className="relative aspect-[4/3] overflow-hidden">
+    <button
+      type="button"
+      onClick={onClick}
+      className="group flex w-full items-center gap-4 rounded-lg bg-card p-3 text-left shadow-sm transition-all hover:shadow-md"
+    >
+      {/* Thumbnail */}
+      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
         <Image
           src={dish.image || "/placeholder.svg"}
           alt={dish.name}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-cover transition-transform duration-300 group-hover:scale-110"
         />
-        {dish.popular && (
-          <Badge className="absolute left-3 top-3 bg-secondary text-secondary-foreground">
-            <Flame className="mr-1 h-3 w-3" />
-            Popular
-          </Badge>
-        )}
-        {/* 10:01 Watermark */}
-        <div className="absolute bottom-2 right-2 rounded bg-black/70 px-2 py-0.5 text-xs font-medium text-white">
-          10:01 Cuisine
-        </div>
       </div>
 
-      <CardContent className="p-4">
-        <h3 className="font-semibold text-foreground">{dish.name}</h3>
-        <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
-          {dish.description}
-        </p>
-
-        <div className="mt-4 flex items-center justify-between">
-          <div>
-            <span className="text-sm text-muted-foreground">From</span>
-            <span className="ml-1 text-lg font-bold text-primary">
-              {formatPrice(dish.basePrice)}
-            </span>
-          </div>
-          <Button
-            size="sm"
-            onClick={onCustomize}
-            className="bg-primary text-primary-foreground hover:bg-primary/90"
-          >
-            Customize
-          </Button>
+      {/* Content */}
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        {/* Rating */}
+        <div className="flex items-center gap-1">
+          <Star className="h-3.5 w-3.5 fill-secondary text-secondary" />
+          <span className="text-xs font-medium text-muted-foreground">4.8</span>
         </div>
-      </CardContent>
-    </Card>
+        
+        {/* Name */}
+        <h3 className="truncate font-semibold text-foreground">{dish.name}</h3>
+        
+        {/* Price */}
+        <p className="font-serif text-lg font-bold text-accent">
+          {formatPrice(dish.basePrice)}
+        </p>
+      </div>
+
+      {/* Action Button */}
+      <div className="flex-shrink-0">
+        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-accent text-white transition-transform group-hover:scale-110">
+          <Heart className="h-4 w-4" />
+        </div>
+      </div>
+    </button>
   );
 }

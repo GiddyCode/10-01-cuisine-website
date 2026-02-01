@@ -161,7 +161,7 @@ export function CartSheet({ children }: CartSheetProps) {
 
               <Button
                 asChild
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                className="w-full bg-accent text-white hover:bg-accent/90"
                 size="lg"
               >
                 <Link href="/checkout">Proceed to Checkout</Link>
