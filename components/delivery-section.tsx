@@ -19,13 +19,16 @@ export function DeliverySection() {
   const otherAreas = deliveryAreas.filter((area) => area.fee === 1000);
 
   return (
-    <section id="delivery" className="bg-background py-16 sm:py-24">
+    <section id="delivery" className="bg-muted py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="font-serif text-3xl font-bold text-foreground sm:text-4xl">
+          <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+            Fast & Fresh
+          </p>
+          <h2 className="mt-3 font-serif text-3xl font-bold text-foreground sm:text-4xl">
             Delivery Areas
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
             We deliver across Abuja. Check if we cover your area!
           </p>
         </div>

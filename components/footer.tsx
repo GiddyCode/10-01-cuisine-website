@@ -8,7 +8,7 @@ import { contactInfo } from "@/lib/data";
 
 export function Footer() {
   return (
-    <footer id="contact" className="bg-black text-white">
+    <footer id="contact" className="bg-primary text-white">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -110,7 +110,7 @@ export function Footer() {
             <div className="mt-4 flex flex-col gap-3">
               <Button
                 asChild
-                className="bg-primary text-white hover:bg-primary/90"
+                className="bg-accent text-white hover:bg-accent/90"
               >
                 <a
                   href={contactInfo.whatsapp}
