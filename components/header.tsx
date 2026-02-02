@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingBag, Menu, X, Phone } from "lucide-react";
+import { ShoppingBag, Menu, Phone, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -15,56 +15,54 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
+    { href: "/", label: "Home", active: true },
     { href: "#menu", label: "Menu" },
-    { href: "#how-it-works", label: "How It Works" },
-    { href: "#delivery", label: "Delivery Areas" },
+    { href: "#delivery", label: "About" },
     { href: "#contact", label: "Contact" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background shadow-sm">
+    <header className="absolute left-0 right-0 top-0 z-50 w-full">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/logo.png"
-            alt="10:01 Cuisine and more"
-            width={50}
-            height={50}
-            className="h-10 w-auto sm:h-12"
-          />
-          <span className="hidden font-serif text-lg font-semibold text-foreground sm:block">
-            10:01 Cuisine
-          </span>
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center gap-2">
+            <Image
+              src="/logo.png"
+              alt="10:01 Cuisine and more"
+              width={50}
+              height={50}
+              className="h-10 w-auto sm:h-12"
+            />
+            <span className="hidden font-serif text-lg font-semibold italic text-primary sm:block">
+              10:01 Cuisine
+            </span>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+          {/* Divider */}
+          <div className="hidden h-6 w-px bg-white/30 md:block" />
+
+          {/* Desktop Navigation */}
+          <nav className="hidden items-center gap-6 md:flex">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-medium transition-colors ${
+                  link.active ? "text-primary" : "text-white/70 hover:text-white"
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 sm:gap-4">
-          {/* Phone - Desktop */}
-          <a
-            href={`tel:${contactInfo.phone.replace(/\s/g, "")}`}
-            className="hidden items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground lg:flex"
-          >
-            <Phone className="h-4 w-4" />
-            <span>{contactInfo.phone}</span>
-          </a>
-
+        <div className="flex items-center gap-3 sm:gap-4">
           {/* Cart */}
           <CartSheet>
-            <Button variant="outline" size="icon" className="relative bg-transparent">
+            <Button variant="ghost" size="icon" className="relative text-white hover:bg-white/10 hover:text-white">
               <ShoppingBag className="h-5 w-5" />
               {itemCount > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
@@ -75,10 +73,22 @@ export function Header() {
             </Button>
           </CartSheet>
 
+          {/* Contact Us Button - Desktop */}
+          <Button
+            variant="outline"
+            className="hidden rounded-full border-white bg-transparent px-6 py-5 text-sm font-semibold text-white hover:bg-white hover:text-foreground md:flex"
+            asChild
+          >
+            <a href={contactInfo.whatsapp} target="_blank" rel="noopener noreferrer">
+              Contact Us
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </a>
+          </Button>
+
           {/* Mobile Menu */}
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Open menu</span>
               </Button>

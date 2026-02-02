@@ -2,117 +2,104 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { ArrowRight, Star } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-background py-8 lg:py-16">
-      <div className="container mx-auto px-4">
-        {/* Main Hero Content */}
-        <div className="flex flex-col items-center text-center">
-          {/* Headline */}
-          <h1 className="font-serif text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl xl:text-7xl">
-            <span className="text-balance">
-              Delicious Food,{" "}
-              <span className="text-primary">Delivered Fast</span>
-            </span>
-          </h1>
-          
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Fresh, homemade African cuisine delivered to your doorstep in Abuja. 
-            Made with love by a chef trained by Hilda Baci.
-          </p>
-          
-          <div className="mt-8">
-            <Button
-              size="lg"
-              className="rounded-full bg-primary px-10 py-6 text-base font-semibold text-white hover:bg-primary/90"
-              asChild
-            >
-              <a href="#menu">
-                Order Now
-              </a>
-            </Button>
+    <section className="relative min-h-[90vh] overflow-hidden bg-[#1a1a1a]">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Hero background"
+          fill
+          className="object-cover opacity-60"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/90 via-[#1a1a1a]/70 to-transparent" />
+      </div>
+
+      {/* Decorative doodles */}
+      <div className="pointer-events-none absolute right-[45%] top-20 text-white/20">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M5 20 Q20 5, 35 20 M5 25 Q20 10, 35 25" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </div>
+      <div className="pointer-events-none absolute right-20 top-32 text-white/20">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <path d="M5 15 L15 5 M15 5 L25 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </div>
+
+      <div className="container relative z-10 mx-auto flex min-h-[90vh] items-center px-4 py-16">
+        <div className="grid w-full items-center gap-8 lg:grid-cols-2 lg:gap-16">
+          {/* Left Content */}
+          <div className="max-w-xl">
+            {/* Brand badge */}
+            <div className="mb-6 flex items-center gap-3">
+              <Image
+                src="/logo.png"
+                alt="10:01 Cuisine"
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-full"
+              />
+              <span className="text-sm font-medium text-primary">10:01 Cuisine - Best Food Forever</span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="font-serif text-4xl font-bold italic leading-tight text-white sm:text-5xl lg:text-6xl">
+              Satisfy Your Cravings, Delight Your Tastebuds
+            </h1>
+            
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/70">
+              At 10:01 Cuisine, we expertly whip up every single meal using only the freshest 
+              ingredients and the most delicious flavors, crafted just for you!
+            </p>
+            
+            <div className="mt-8 flex flex-wrap items-center gap-6">
+              <Button
+                size="lg"
+                className="rounded-full bg-primary px-8 py-6 text-base font-semibold text-primary-foreground hover:bg-primary/90"
+                asChild
+              >
+                <a href="#menu">
+                  Explore Menu
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
+              </Button>
+
+              {/* Google Rating */}
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-white">Google</span>
+                <div className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Star key={i} className={`h-4 w-4 ${i <= 4 ? 'fill-primary text-primary' : 'fill-primary/50 text-primary/50'}`} />
+                  ))}
+                </div>
+                <span className="text-sm text-white/70">4.5/5</span>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Floating Food Images */}
-        <div className="relative mx-auto mt-12 max-w-5xl">
-          <div className="flex items-center justify-center gap-4 sm:gap-8 lg:gap-12">
-            {/* Left Food Item */}
-            <div className="relative flex-shrink-0">
-              <div className="relative h-48 w-48 sm:h-64 sm:w-64 lg:h-80 lg:w-80">
-                {/* Smoke effect */}
-                <div className="absolute -top-8 left-1/2 h-16 w-32 -translate-x-1/2 opacity-40">
-                  <svg viewBox="0 0 100 50" className="h-full w-full">
-                    <path
-                      d="M20,50 Q30,30 25,20 Q20,10 30,5 M50,50 Q55,35 50,25 Q45,15 55,5 M80,50 Q75,30 80,20 Q85,10 75,5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="animate-pulse text-muted-foreground/30"
-                    />
-                  </svg>
-                </div>
-                <Image
-                  src="/images/dishes/jollof-rice.jpg"
-                  alt="Jollof Rice"
-                  width={320}
-                  height={320}
-                  className="h-full w-full rounded-3xl object-cover shadow-2xl"
-                  priority
-                />
-              </div>
-            </div>
-
-            {/* Center Food Item - Larger */}
-            <div className="relative flex-shrink-0">
-              <div className="relative h-56 w-56 sm:h-72 sm:w-72 lg:h-96 lg:w-96">
-                {/* Smoke effect */}
-                <div className="absolute -top-10 left-1/2 h-20 w-40 -translate-x-1/2 opacity-40">
-                  <svg viewBox="0 0 100 50" className="h-full w-full">
-                    <path
-                      d="M15,50 Q25,25 20,15 Q15,5 25,0 M40,50 Q45,30 40,20 Q35,10 45,0 M65,50 Q60,30 65,20 Q70,10 60,0 M85,50 Q80,25 85,15 Q90,5 80,0"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="animate-pulse text-muted-foreground/30"
-                    />
-                  </svg>
-                </div>
-                <Image
-                  src="/images/dishes/egusi-soup.jpg"
-                  alt="Egusi Soup"
-                  width={400}
-                  height={400}
-                  className="h-full w-full rounded-3xl object-cover shadow-2xl"
-                  priority
-                />
-              </div>
-            </div>
-
-            {/* Right Food Item */}
-            <div className="relative flex-shrink-0">
-              <div className="relative h-48 w-48 sm:h-64 sm:w-64 lg:h-80 lg:w-80">
-                {/* Smoke effect */}
-                <div className="absolute -top-8 left-1/2 h-16 w-32 -translate-x-1/2 opacity-40">
-                  <svg viewBox="0 0 100 50" className="h-full w-full">
-                    <path
-                      d="M20,50 Q30,30 25,20 Q20,10 30,5 M50,50 Q55,35 50,25 Q45,15 55,5 M80,50 Q75,30 80,20 Q85,10 75,5"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="animate-pulse text-muted-foreground/30"
-                    />
-                  </svg>
-                </div>
-                <Image
-                  src="/images/dishes/peppered-chicken.jpg"
-                  alt="Peppered Chicken"
-                  width={320}
-                  height={320}
-                  className="h-full w-full rounded-3xl object-cover shadow-2xl"
-                  priority
-                />
+          {/* Right Content - Hero Image with Discount Badge */}
+          <div className="relative flex justify-center lg:justify-end">
+            {/* Main food image */}
+            <div className="relative">
+              <Image
+                src="/images/hero-food.png"
+                alt="Delicious food"
+                width={600}
+                height={600}
+                className="h-auto max-h-[500px] w-auto object-contain drop-shadow-2xl lg:max-h-[600px]"
+                priority
+              />
+              
+              {/* Discount Badge */}
+              <div className="absolute left-0 top-1/3 flex h-28 w-28 -translate-x-1/4 flex-col items-center justify-center rounded-full border-4 border-dashed border-white/30 bg-white text-center shadow-xl sm:h-32 sm:w-32">
+                <span className="text-[10px] font-medium text-gray-600">Limited Offer</span>
+                <span className="font-serif text-3xl font-bold text-foreground sm:text-4xl">20%</span>
+                <span className="text-[10px] font-medium text-gray-600">Discount</span>
               </div>
             </div>
           </div>
