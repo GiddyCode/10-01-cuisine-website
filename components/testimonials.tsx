@@ -26,6 +26,20 @@ const testimonials = [
     image: "/images/testimonials/user-3.jpg",
     text: "I've ordered from 10:01 Cuisine many times, and they've never messed up my order. Everything is hot, fresh, and tasty. Customer support is great too. Highly recommend!",
   },
+  {
+    id: 4,
+    name: "Emmanuel Okoro",
+    role: "Logistics Manager",
+    image: "/images/testimonials/user-1.jpg",
+    text: "10:01 Cuisine totally leveled up my lunch! Their jollof rice is always fresh, super filling, and packed with flavor. And I love that it comes hot every single time.",
+  },
+  {
+    id: 5,
+    name: "Funke Adewale",
+    role: "Startup Founder",
+    image: "/images/testimonials/user-2.jpg",
+    text: "Every single time I order, the food is just as tasty as the first time! The WhatsApp ordering is super easy to use, and the delivery crew is always on point and friendly. Totally dependable!",
+  },
 ];
 
 const avatars = [
@@ -73,42 +87,44 @@ export function Testimonials() {
           </div>
         </div>
 
-        {/* Testimonial Cards */}
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={testimonial.id}
-              className={`rounded-2xl border-2 p-6 ${
-                index === 0 ? "border-primary bg-primary/5" : "border-border bg-card"
-              }`}
-            >
-              {/* Quote Icon */}
-              <div className={`font-serif text-5xl leading-none ${index === 0 ? "text-primary" : "text-foreground"}`}>
-                {'\u201C\u201C'}
-              </div>
-
-              {/* Review Text */}
-              <p className="mt-4 text-base leading-relaxed text-foreground">
-                {`"${testimonial.text}"`}
-              </p>
-
-              {/* Customer Info */}
-              <div className="mt-6 flex items-center gap-3">
-                <div className="relative h-12 w-12 overflow-hidden rounded-full">
-                  <Image
-                    src={testimonial.image || "/placeholder.svg"}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover"
-                  />
+        {/* Testimonial Cards - Horizontal Scroll */}
+        <div className="mt-12 -mx-4 px-4 overflow-x-auto pb-4">
+          <div className="flex gap-6 min-w-max">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={testimonial.id}
+                className={`w-80 flex-shrink-0 rounded-2xl border-2 p-6 ${
+                  index === 0 ? "border-primary bg-primary/5" : "border-border bg-card"
+                }`}
+              >
+                {/* Quote Icon */}
+                <div className={`font-serif text-5xl leading-none ${index === 0 ? "text-primary" : "text-foreground"}`}>
+                  {'\u201C\u201C'}
                 </div>
-                <div>
-                  <p className="font-semibold text-foreground">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+
+                {/* Review Text */}
+                <p className="mt-4 text-base leading-relaxed text-foreground">
+                  {`"${testimonial.text}"`}
+                </p>
+
+                {/* Customer Info */}
+                <div className="mt-6 flex items-center gap-3">
+                  <div className="relative h-12 w-12 overflow-hidden rounded-full">
+                    <Image
+                      src={testimonial.image || "/placeholder.svg"}
+                      alt={testimonial.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">{testimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* Navigation Arrows */}
