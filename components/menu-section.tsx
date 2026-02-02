@@ -2,11 +2,11 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import { Search, Star, Heart } from "lucide-react";
+import { Search, Flame, Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { categories, dishes } from "@/lib/data";
 import type { Dish } from "@/lib/types";
-import { CustomizeModal } from "./customize-modal";
+import { CustomizeSheet } from "./customize-sheet";
 
 function formatPrice(amount: number): string {
   return new Intl.NumberFormat("en-NG", {
@@ -47,14 +47,14 @@ export function MenuSection() {
   }, [selectedCategory, searchQuery]);
 
   return (
-    <section id="menu" className="bg-muted py-16 sm:py-24">
+    <section id="menu" className="bg-background py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center">
-          <p className="text-sm font-semibold uppercase tracking-widest text-accent">
+          <p className="text-sm font-semibold uppercase tracking-widest text-primary">
             Delicious Picks
           </p>
-          <h2 className="mt-3 font-serif text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 font-serif text-3xl font-bold italic text-foreground sm:text-4xl lg:text-5xl">
             Our Menu
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -65,39 +65,42 @@ export function MenuSection() {
         {/* Search */}
         <div className="mx-auto mt-8 max-w-md">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
             <Input
               type="search"
               placeholder="Search dishes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-card pl-10"
+              className="rounded-full border-border bg-card py-6 pl-12 pr-4 shadow-sm"
             />
           </div>
         </div>
 
-        {/* Category Tabs */}
-        <div className="mx-auto mt-10 flex flex-wrap justify-center gap-3">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              type="button"
-              onClick={() => setSelectedCategory(category.id)}
-              className={`rounded-md border-2 px-6 py-2.5 text-sm font-semibold uppercase tracking-wide transition-all ${
-                selectedCategory === category.id
-                  ? "border-accent bg-accent text-white"
-                  : "border-accent/30 bg-card text-foreground hover:border-accent"
-              }`}
-            >
-              {category.name}
-            </button>
-          ))}
+        {/* Category Tabs - Pill Style Container */}
+        <div className="mx-auto mt-10 flex justify-center">
+          <div className="inline-flex flex-wrap items-center justify-center gap-1 rounded-full bg-card p-1.5 shadow-md">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                type="button"
+                onClick={() => setSelectedCategory(category.id)}
+                className={`flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all ${
+                  selectedCategory === category.id
+                    ? "bg-primary text-white shadow-sm"
+                    : "text-foreground hover:bg-muted"
+                }`}
+              >
+                <span>{category.icon}</span>
+                <span>{category.name}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Dishes List - Two Column Layout */}
-        <div className="mt-12 grid gap-4 lg:grid-cols-2">
+        {/* Dishes Grid - 4 Column Card Layout */}
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredDishes.map((dish) => (
-            <DishListItem
+            <DishCard
               key={dish.id}
               dish={dish}
               onClick={() => setSelectedDish(dish)}
@@ -114,9 +117,9 @@ export function MenuSection() {
         )}
       </div>
 
-      {/* Customize Modal */}
+      {/* Customize Sheet */}
       {selectedDish && (
-        <CustomizeModal
+        <CustomizeSheet
           dish={selectedDish}
           open={!!selectedDish}
           onOpenChange={(open) => !open && setSelectedDish(null)}
@@ -126,51 +129,52 @@ export function MenuSection() {
   );
 }
 
-interface DishListItemProps {
+interface DishCardProps {
   dish: Dish;
   onClick: () => void;
 }
 
-function DishListItem({ dish, onClick }: DishListItemProps) {
+function DishCard({ dish, onClick }: DishCardProps) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="group flex w-full items-center gap-4 rounded-lg bg-card p-3 text-left shadow-sm transition-all hover:shadow-md"
-    >
-      {/* Thumbnail */}
-      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
+    <div className="group relative overflow-hidden rounded-2xl bg-card shadow-sm transition-all hover:shadow-lg">
+      {/* Image Container */}
+      <div className="relative aspect-square overflow-hidden">
         <Image
           src={dish.image || "/placeholder.svg"}
           alt={dish.name}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-110"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
+        
+        {/* Popular Badge */}
+        {dish.popular && (
+          <div className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-foreground/90 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
+            <Flame className="h-3 w-3 text-orange-400" />
+            <span>Popular</span>
+          </div>
+        )}
       </div>
 
       {/* Content */}
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
-        {/* Rating */}
-        <div className="flex items-center gap-1">
-          <Star className="h-3.5 w-3.5 fill-secondary text-secondary" />
-          <span className="text-xs font-medium text-muted-foreground">4.8</span>
-        </div>
+      <div className="p-4">
+        <h3 className="font-semibold text-foreground">{dish.name}</h3>
         
-        {/* Name */}
-        <h3 className="truncate font-semibold text-foreground">{dish.name}</h3>
-        
-        {/* Price */}
-        <p className="font-serif text-lg font-bold text-accent">
-          {formatPrice(dish.basePrice)}
-        </p>
-      </div>
-
-      {/* Action Button */}
-      <div className="flex-shrink-0">
-        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-accent text-white transition-transform group-hover:scale-110">
-          <Heart className="h-4 w-4" />
+        <div className="mt-3 flex items-center justify-between">
+          <p className="text-lg font-bold text-primary">
+            {formatPrice(dish.basePrice)}
+          </p>
+          
+          {/* Add Button */}
+          <button
+            type="button"
+            onClick={onClick}
+            className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-white transition-transform hover:scale-110"
+            aria-label={`Add ${dish.name} to cart`}
+          >
+            <Plus className="h-5 w-5" />
+          </button>
         </div>
       </div>
-    </button>
+    </div>
   );
 }
