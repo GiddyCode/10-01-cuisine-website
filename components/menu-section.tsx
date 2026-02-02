@@ -2,11 +2,14 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import { Search, Star, Heart } from "lucide-react";
+import { Search, Flame } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import { categories, dishes } from "@/lib/data";
 import type { Dish } from "@/lib/types";
-import { CustomizeModal } from "./customize-modal";
+import { CustomizeSheet } from "./customize-sheet";
 
 function formatPrice(amount: number): string {
   return new Intl.NumberFormat("en-NG", {
@@ -94,13 +97,13 @@ export function MenuSection() {
           ))}
         </div>
 
-        {/* Dishes List - Two Column Layout */}
-        <div className="mt-12 grid gap-4 lg:grid-cols-2">
+        {/* Dishes Grid */}
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredDishes.map((dish) => (
-            <DishListItem
+            <DishCard
               key={dish.id}
               dish={dish}
-              onClick={() => setSelectedDish(dish)}
+              onCustomize={() => setSelectedDish(dish)}
             />
           ))}
         </div>
@@ -114,9 +117,9 @@ export function MenuSection() {
         )}
       </div>
 
-      {/* Customize Modal */}
+      {/* Customize Sheet */}
       {selectedDish && (
-        <CustomizeModal
+        <CustomizeSheet
           dish={selectedDish}
           open={!!selectedDish}
           onOpenChange={(open) => !open && setSelectedDish(null)}
@@ -126,51 +129,67 @@ export function MenuSection() {
   );
 }
 
-interface DishListItemProps {
+interface DishCardProps {
   dish: Dish;
-  onClick: () => void;
+  onCustomize: () => void;
 }
 
-function DishListItem({ dish, onClick }: DishListItemProps) {
+function DishCard({ dish, onCustomize }: DishCardProps) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="group flex w-full items-center gap-4 rounded-lg bg-card p-3 text-left shadow-sm transition-all hover:shadow-md"
-    >
-      {/* Thumbnail */}
-      <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg">
+    <Card className="group overflow-hidden bg-card transition-all duration-300 hover:shadow-xl">
+      <div className="relative aspect-square overflow-hidden">
         <Image
           src={dish.image || "/placeholder.svg"}
           alt={dish.name}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-110"
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
         />
-      </div>
-
-      {/* Content */}
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
-        {/* Rating */}
-        <div className="flex items-center gap-1">
-          <Star className="h-3.5 w-3.5 fill-secondary text-secondary" />
-          <span className="text-xs font-medium text-muted-foreground">4.8</span>
-        </div>
-        
-        {/* Name */}
-        <h3 className="truncate font-semibold text-foreground">{dish.name}</h3>
-        
-        {/* Price */}
-        <p className="font-serif text-lg font-bold text-accent">
-          {formatPrice(dish.basePrice)}
-        </p>
-      </div>
-
-      {/* Action Button */}
-      <div className="flex-shrink-0">
-        <div className="flex h-9 w-9 items-center justify-center rounded-md bg-accent text-white transition-transform group-hover:scale-110">
-          <Heart className="h-4 w-4" />
+        {dish.popular && (
+          <Badge className="absolute left-3 top-3 bg-secondary text-secondary-foreground shadow-md">
+            <Flame className="mr-1 h-3 w-3" />
+            Popular
+          </Badge>
+        )}
+        {/* Quick add button overlay */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <Button
+            size="sm"
+            onClick={onCustomize}
+            className="bg-accent text-white hover:bg-accent/90"
+          >
+            Add to Order
+          </Button>
         </div>
       </div>
-    </button>
+
+      <CardContent className="p-4">
+        <div className="flex items-start justify-between gap-2">
+          <div className="flex-1">
+            <h3 className="font-semibold text-foreground line-clamp-1">{dish.name}</h3>
+            <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+              {dish.description}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-3 flex items-center justify-between border-t border-border pt-3">
+          <div className="flex items-baseline gap-1">
+            <span className="font-serif text-xl font-bold text-accent">
+              {formatPrice(dish.basePrice)}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={onCustomize}
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-white transition-transform hover:scale-110"
+            aria-label="Add to cart"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
