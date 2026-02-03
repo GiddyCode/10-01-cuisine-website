@@ -87,11 +87,11 @@ export function Hero() {
             {/* Main food image */}
             <div className="relative">
               <Image
-                src="/images/hero-food.png"
+                src="/images/hero-food.jpg"
                 alt="Delicious food"
-                width={600}
-                height={600}
-                className="h-auto max-h-[500px] w-auto object-contain drop-shadow-2xl lg:max-h-[600px]"
+                width={700}
+                height={700}
+                className="h-auto max-h-[550px] w-auto rounded-2xl object-cover drop-shadow-2xl lg:max-h-[650px]"
                 priority
               />
               
