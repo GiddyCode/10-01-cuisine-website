@@ -89,17 +89,17 @@ export function Hero() {
               <Image
                 src="/images/hero-food.png"
                 alt="Delicious food"
-                width={600}
-                height={600}
-                className="h-auto max-h-[500px] w-auto object-contain drop-shadow-2xl lg:max-h-[600px]"
+                width={900}
+                height={900}
+                className="h-auto max-h-[600px] w-auto object-contain drop-shadow-2xl lg:max-h-[800px]"
                 priority
               />
               
-              {/* Discount Badge */}
-              <div className="absolute left-0 top-1/3 flex h-28 w-28 -translate-x-1/4 flex-col items-center justify-center rounded-full border-4 border-dashed border-white/30 bg-white text-center shadow-xl sm:h-32 sm:w-32">
-                <span className="text-[10px] font-medium text-gray-600">Limited Offer</span>
-                <span className="font-serif text-3xl font-bold text-foreground sm:text-4xl">20%</span>
-                <span className="text-[10px] font-medium text-gray-600">Discount</span>
+              {/* Discount Badge - Yellow Sticker Style */}
+              <div className="absolute left-0 top-1/3 flex h-28 w-28 -translate-x-1/4 flex-col items-center justify-center rounded-full bg-primary text-center shadow-xl transition-transform duration-300 hover:scale-105 sm:h-32 sm:w-32">
+                <span className="text-[10px] font-bold uppercase tracking-wide text-primary-foreground/70">Limited Offer</span>
+                <span className="font-serif text-3xl font-bold text-primary-foreground sm:text-4xl">20%</span>
+                <span className="text-[10px] font-bold uppercase tracking-wide text-primary-foreground/70">Discount</span>
               </div>
             </div>
           </div>

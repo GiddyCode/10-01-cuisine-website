@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState, useRef } from "react";
 
 const testimonials = [
   {
@@ -49,6 +50,19 @@ const avatars = [
 ];
 
 export function Testimonials() {
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const cardWidth = 320 + 24; // card width (w-80 = 320px) + gap (gap-6 = 24px)
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -cardWidth : cardWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <section className="bg-background py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -88,42 +102,50 @@ export function Testimonials() {
         </div>
 
         {/* Testimonial Cards - Horizontal Scroll */}
-        <div className="mt-12 -mx-4 px-4 overflow-x-auto pb-4">
+        <div 
+          ref={scrollRef}
+          className="mt-12 -mx-4 px-4 overflow-x-auto pb-4 scrollbar-hide"
+        >
           <div className="flex gap-6 min-w-max">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={testimonial.id}
-                className={`w-80 flex-shrink-0 rounded-2xl border-2 p-6 ${
-                  index === 0 ? "border-primary bg-primary/5" : "border-border bg-card"
-                }`}
-              >
-                {/* Quote Icon */}
-                <div className={`font-serif text-5xl leading-none ${index === 0 ? "text-primary" : "text-foreground"}`}>
-                  {'\u201C\u201C'}
-                </div>
-
-                {/* Review Text */}
-                <p className="mt-4 text-base leading-relaxed text-foreground">
-                  {`"${testimonial.text}"`}
-                </p>
-
-                {/* Customer Info */}
-                <div className="mt-6 flex items-center gap-3">
-                  <div className="relative h-12 w-12 overflow-hidden rounded-full">
-                    <Image
-                      src={testimonial.image || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      fill
-                      className="object-cover"
-                    />
+            {testimonials.map((testimonial) => {
+              const isSelected = selectedId === testimonial.id;
+              return (
+                <button
+                  type="button"
+                  key={testimonial.id}
+                  onClick={() => setSelectedId(isSelected ? null : testimonial.id)}
+                  className={`w-80 flex-shrink-0 rounded-2xl border-2 p-6 text-left transition-all duration-300 ${
+                    isSelected ? "border-primary bg-primary/5" : "border-border bg-card hover:border-border/80"
+                  }`}
+                >
+                  {/* Quote Icon */}
+                  <div className={`font-serif text-5xl leading-none transition-colors duration-300 ${isSelected ? "text-primary" : "text-foreground"}`}>
+                    {'\u201C\u201C'}
                   </div>
-                  <div>
-                    <p className="font-semibold text-foreground">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+
+                  {/* Review Text */}
+                  <p className="mt-4 text-base leading-relaxed text-foreground">
+                    {`"${testimonial.text}"`}
+                  </p>
+
+                  {/* Customer Info */}
+                  <div className="mt-6 flex items-center gap-3">
+                    <div className="relative h-12 w-12 overflow-hidden rounded-full">
+                      <Image
+                        src={testimonial.image || "/placeholder.svg"}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">{testimonial.name}</p>
+                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -132,6 +154,7 @@ export function Testimonials() {
           <Button
             variant="outline"
             size="icon"
+            onClick={() => scroll("left")}
             className="h-12 w-12 rounded-full border-foreground bg-foreground text-background hover:bg-foreground/90 hover:text-background"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -140,6 +163,7 @@ export function Testimonials() {
           <Button
             variant="outline"
             size="icon"
+            onClick={() => scroll("right")}
             className="h-12 w-12 rounded-full border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background"
           >
             <ChevronRight className="h-5 w-5" />

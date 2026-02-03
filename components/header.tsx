@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingBag, Menu, Phone, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useCart } from "@/lib/cart-context";
@@ -13,6 +13,16 @@ import { contactInfo } from "@/lib/data";
 export function Header() {
   const { itemCount } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -22,7 +32,11 @@ export function Header() {
   ];
 
   return (
-    <header className="absolute left-0 right-0 top-0 z-50 w-full">
+    <header className={`fixed left-0 right-0 top-0 z-50 w-full transition-all duration-300 ${
+      scrolled 
+        ? "bg-[#1a1a1a]/95 shadow-lg backdrop-blur-md" 
+        : "bg-transparent"
+    }`}>
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <div className="flex items-center gap-6">
