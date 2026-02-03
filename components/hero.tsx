@@ -86,12 +86,14 @@ export function Hero() {
           <div className="relative flex justify-center lg:justify-end">
             {/* Main food image */}
             <div className="relative">
+              {/* Dark background behind image to hide transparency pattern */}
+              <div className="absolute inset-0 -z-10 scale-110 rounded-full bg-[#1a1a1a] blur-3xl lg:scale-[1.3]" />
               <Image
-                src="/images/hero-food.jpg"
+                src="/images/hero-food.png"
                 alt="Delicious food"
-                width={700}
-                height={700}
-                className="h-auto max-h-[550px] w-auto rounded-2xl object-cover drop-shadow-2xl lg:max-h-[650px]"
+                width={800}
+                height={800}
+                className="relative z-10 h-auto max-h-[600px] w-auto scale-110 object-contain drop-shadow-2xl lg:max-h-[750px] lg:scale-[1.3]"
                 priority
               />
               
