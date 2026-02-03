@@ -89,9 +89,9 @@ export function Hero() {
               <Image
                 src="/images/hero-food.png"
                 alt="Delicious food"
-                width={600}
-                height={600}
-                className="h-auto max-h-[500px] w-auto object-contain drop-shadow-2xl lg:max-h-[600px]"
+                width={800}
+                height={800}
+                className="h-auto max-h-[550px] w-auto object-contain drop-shadow-2xl lg:max-h-[700px]"
                 priority
               />
               
