@@ -295,16 +295,25 @@ function DishCard({ dish, onClick }: DishCardProps) {
     <button
       type="button"
       onClick={onClick}
-      className="group relative overflow-hidden rounded-2xl border border-border bg-card p-4 text-left transition-all hover:border-primary/50 hover:shadow-lg"
+      className="group relative overflow-hidden rounded-2xl border-2 border-transparent bg-card p-4 text-left transition-all duration-300 ease-out hover:-translate-y-1 hover:border-primary hover:shadow-xl hover:shadow-primary/10"
     >
-      {/* Image */}
+      {/* Image Container with Overlay */}
       <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl">
         <Image
           src={dish.image || "/placeholder.svg"}
           alt={dish.name}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover transition-transform duration-300 ease-out group-hover:scale-105"
         />
+        {/* Dark overlay on hover */}
+        <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/40" />
+        
+        {/* Centered yellow arrow button on hover */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-300 group-hover:opacity-100">
+          <div className="flex h-14 w-14 scale-75 items-center justify-center rounded-full bg-primary shadow-lg transition-transform duration-300 group-hover:scale-100">
+            <ArrowRight className="h-6 w-6 text-primary-foreground" />
+          </div>
+        </div>
       </div>
 
       {/* Content */}
@@ -324,11 +333,6 @@ function DishCard({ dish, onClick }: DishCardProps) {
         <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
           {dish.description}
         </p>
-      </div>
-
-      {/* Arrow indicator on hover */}
-      <div className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary opacity-0 transition-opacity group-hover:opacity-100">
-        <ArrowRight className="h-5 w-5 text-primary-foreground" />
       </div>
     </button>
   );
