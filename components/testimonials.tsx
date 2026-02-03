@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const testimonials = [
   {
@@ -51,6 +51,17 @@ const avatars = [
 
 export function Testimonials() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const cardWidth = 320 + 24; // card width (w-80 = 320px) + gap (gap-6 = 24px)
+      scrollRef.current.scrollBy({
+        left: direction === "left" ? -cardWidth : cardWidth,
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <section className="bg-background py-16 sm:py-24">
@@ -91,7 +102,10 @@ export function Testimonials() {
         </div>
 
         {/* Testimonial Cards - Horizontal Scroll */}
-        <div className="mt-12 -mx-4 px-4 overflow-x-auto pb-4 scrollbar-hide">
+        <div 
+          ref={scrollRef}
+          className="mt-12 -mx-4 px-4 overflow-x-auto pb-4 scrollbar-hide"
+        >
           <div className="flex gap-6 min-w-max">
             {testimonials.map((testimonial) => {
               const isSelected = selectedId === testimonial.id;
@@ -140,6 +154,7 @@ export function Testimonials() {
           <Button
             variant="outline"
             size="icon"
+            onClick={() => scroll("left")}
             className="h-12 w-12 rounded-full border-foreground bg-foreground text-background hover:bg-foreground/90 hover:text-background"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -148,6 +163,7 @@ export function Testimonials() {
           <Button
             variant="outline"
             size="icon"
+            onClick={() => scroll("right")}
             className="h-12 w-12 rounded-full border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background"
           >
             <ChevronRight className="h-5 w-5" />
