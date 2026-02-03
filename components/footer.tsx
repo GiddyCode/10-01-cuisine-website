@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, Mail, MapPin, Instagram, MessageCircle } from "lucide-react";
+import { Phone, Mail, MapPin, Instagram, MessageCircle, Facebook, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { contactInfo } from "@/lib/data";
 
 export function Footer() {
   return (
-    <footer id="contact" className="bg-primary text-white">
+    <footer id="contact" className="bg-[#1a1a1a] text-white">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -21,7 +21,7 @@ export function Footer() {
                 height={60}
                 className="h-14 w-auto"
               />
-              <span className="font-serif text-xl font-semibold">
+              <span className="font-serif text-xl font-semibold text-primary">
                 10:01 Cuisine
               </span>
             </Link>
@@ -29,9 +29,29 @@ export function Footer() {
               Fresh, homemade African cuisine delivered to your doorstep in Abuja. 
               Made with love, served with pride.
             </p>
-            <p className="mt-4 text-xs text-white/50">
-              Chef trained by Hilda Baci
-            </p>
+            {/* Social Icons */}
+            <div className="mt-6 flex items-center gap-4">
+              <a 
+                href={contactInfo.instagramUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-primary hover:text-primary-foreground"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a 
+                href="#"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-primary hover:text-primary-foreground"
+              >
+                <Facebook className="h-5 w-5" />
+              </a>
+              <a 
+                href="#"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-primary hover:text-primary-foreground"
+              >
+                <Twitter className="h-5 w-5" />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -39,33 +59,33 @@ export function Footer() {
             <h3 className="font-semibold text-white">Quick Links</h3>
             <ul className="mt-4 space-y-3">
               <li>
-                <a
-                  href="#menu"
-                  className="text-sm text-white/70 hover:text-white"
+                <Link
+                  href="/"
+                  className="text-sm text-white/70 hover:text-primary"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/menu"
+                  className="text-sm text-white/70 hover:text-primary"
                 >
                   Our Menu
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#how-it-works"
-                  className="text-sm text-white/70 hover:text-white"
+                <Link
+                  href="/about"
+                  className="text-sm text-white/70 hover:text-primary"
                 >
-                  How It Works
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#delivery"
-                  className="text-sm text-white/70 hover:text-white"
-                >
-                  Delivery Areas
-                </a>
+                  About Us
+                </Link>
               </li>
               <li>
                 <Link
                   href="/checkout"
-                  className="text-sm text-white/70 hover:text-white"
+                  className="text-sm text-white/70 hover:text-primary"
                 >
                   Checkout
                 </Link>

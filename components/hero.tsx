@@ -2,155 +2,105 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Truck, Shield, CreditCard, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background">
-      {/* Decorative Leaf Elements */}
-      <div className="pointer-events-none absolute -left-16 top-32 h-48 w-48 opacity-30">
-        <svg viewBox="0 0 100 150" className="h-full w-full fill-primary">
-          <ellipse cx="50" cy="75" rx="25" ry="60" />
-          <line x1="50" y1="15" x2="50" y2="135" stroke="currentColor" strokeWidth="2" className="stroke-primary" />
+    <section className="relative min-h-[90vh] overflow-hidden bg-[#1a1a1a]">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Hero background"
+          fill
+          className="object-cover opacity-60"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/90 via-[#1a1a1a]/70 to-transparent" />
+      </div>
+
+      {/* Decorative doodles */}
+      <div className="pointer-events-none absolute right-[45%] top-20 text-white/20">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <path d="M5 20 Q20 5, 35 20 M5 25 Q20 10, 35 25" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
         </svg>
       </div>
-      <div className="pointer-events-none absolute -right-12 bottom-48 h-36 w-36 rotate-45 opacity-20">
-        <svg viewBox="0 0 100 150" className="h-full w-full fill-primary">
-          <ellipse cx="50" cy="75" rx="25" ry="60" />
+      <div className="pointer-events-none absolute right-20 top-32 text-white/20">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+          <path d="M5 15 L15 5 M15 5 L25 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
         </svg>
       </div>
-      
-      <div className="container mx-auto px-4 py-16 lg:py-24">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+
+      <div className="container relative z-10 mx-auto flex min-h-[90vh] items-center px-4 py-16">
+        <div className="grid w-full items-center gap-8 lg:grid-cols-2 lg:gap-16">
           {/* Left Content */}
-          <div className="order-2 lg:order-1">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-accent">
-              A Bite of Happiness
-            </p>
-            
-            <h1 className="font-serif text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl xl:text-7xl">
-              <span className="text-balance">
-                Delicious Deals{" "}
-                <span className="text-primary">in One Click</span>
-              </span>
+          <div className="max-w-xl">
+            {/* Brand badge */}
+            <div className="mb-6 flex items-center gap-3">
+              <Image
+                src="/logo.png"
+                alt="10:01 Cuisine"
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-full"
+              />
+              <span className="text-sm font-medium text-primary">10:01 Cuisine - Best Food Forever</span>
+            </div>
+
+            {/* Headline */}
+            <h1 className="font-serif text-4xl font-bold italic leading-tight text-white sm:text-5xl lg:text-6xl">
+              Satisfy Your Cravings, Delight Your Tastebuds
             </h1>
             
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground">
-              Fresh, homemade African cuisine delivered to your doorstep in Abuja. 
-              Made with love by a chef trained by Hilda Baci.
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/70">
+              At 10:01 Cuisine, we expertly whip up every single meal using only the freshest 
+              ingredients and the most delicious flavors, crafted just for you!
             </p>
             
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-6">
               <Button
                 size="lg"
-                className="bg-accent px-8 py-6 text-base font-semibold text-white hover:bg-accent/90"
+                className="rounded-full bg-primary px-8 py-6 text-base font-semibold text-primary-foreground hover:bg-primary/90"
                 asChild
               >
                 <a href="#menu">
                   Explore Menu
-                  <ChevronDown className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
-            </div>
-            
-            {/* Stats */}
-            <div className="mt-12 flex flex-wrap gap-10">
-              <div>
-                <p className="font-serif text-4xl font-bold text-foreground">40+</p>
-                <p className="mt-1 text-sm text-muted-foreground">Menu Items</p>
-              </div>
-              <div>
-                <p className="font-serif text-4xl font-bold text-foreground">500+</p>
-                <p className="mt-1 text-sm text-muted-foreground">Happy Customers</p>
-              </div>
-              <div>
-                <div className="flex items-center gap-1">
-                  <Star className="h-6 w-6 fill-secondary text-secondary" />
-                  <p className="font-serif text-4xl font-bold text-foreground">4.9</p>
+
+              {/* Google Rating */}
+              <div className="flex items-center gap-2">
+                <span className="font-semibold text-white">Google</span>
+                <div className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((i) => (
+                    <Star key={i} className={`h-4 w-4 ${i <= 4 ? 'fill-primary text-primary' : 'fill-primary/50 text-primary/50'}`} />
+                  ))}
                 </div>
-                <p className="mt-1 text-sm text-muted-foreground">Rating</p>
+                <span className="text-sm text-white/70">4.5/5</span>
               </div>
             </div>
           </div>
-          
-          {/* Right Content - Food Image */}
-          <div className="relative order-1 lg:order-2">
-            <div className="relative mx-auto max-w-md lg:max-w-lg">
-              {/* Background decorative shape */}
-              <div className="absolute -inset-4 rounded-[3rem] bg-primary/5" />
+
+          {/* Right Content - Hero Image with Discount Badge */}
+          <div className="relative flex justify-center lg:justify-end">
+            {/* Main food image */}
+            <div className="relative">
+              <Image
+                src="/images/hero-food.png"
+                alt="Delicious food"
+                width={600}
+                height={600}
+                className="h-auto max-h-[500px] w-auto object-contain drop-shadow-2xl lg:max-h-[600px]"
+                priority
+              />
               
-              {/* Main food image */}
-              <div className="relative z-10 overflow-hidden rounded-3xl shadow-2xl">
-                <Image
-                  src="/images/dishes/jollof-rice.jpg"
-                  alt="Delicious Jollof Rice"
-                  width={500}
-                  height={500}
-                  className="aspect-square w-full object-cover"
-                  priority
-                />
+              {/* Discount Badge */}
+              <div className="absolute left-0 top-1/3 flex h-28 w-28 -translate-x-1/4 flex-col items-center justify-center rounded-full border-4 border-dashed border-white/30 bg-white text-center shadow-xl sm:h-32 sm:w-32">
+                <span className="text-[10px] font-medium text-gray-600">Limited Offer</span>
+                <span className="font-serif text-3xl font-bold text-foreground sm:text-4xl">20%</span>
+                <span className="text-[10px] font-medium text-gray-600">Discount</span>
               </div>
-              
-              {/* Price tag */}
-              <div className="absolute -right-2 top-6 z-20 flex h-20 w-20 flex-col items-center justify-center rounded-full bg-accent text-white shadow-lg sm:-right-6">
-                <span className="text-xs font-medium">from</span>
-                <span className="font-serif text-lg font-bold">N2,000</span>
-              </div>
-              
-              {/* Floating food thumbnail 1 */}
-              <div className="absolute -left-4 bottom-24 z-20 h-24 w-24 overflow-hidden rounded-2xl border-4 border-card bg-card shadow-xl sm:-left-8">
-                <Image
-                  src="/images/dishes/peppered-chicken.jpg"
-                  alt="Peppered Chicken"
-                  width={100}
-                  height={100}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              
-              {/* Floating food thumbnail 2 */}
-              <div className="absolute -bottom-4 right-8 z-20 h-28 w-28 overflow-hidden rounded-2xl border-4 border-card bg-card shadow-xl sm:right-12">
-                <Image
-                  src="/images/dishes/egusi-soup.jpg"
-                  alt="Egusi Soup"
-                  width={120}
-                  height={120}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Feature Badges */}
-        <div className="mt-20 grid gap-8 border-t border-border pt-12 sm:grid-cols-3">
-          <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-card shadow-md">
-              <Truck className="h-7 w-7 text-primary" />
-            </div>
-            <div>
-              <p className="font-semibold text-foreground">Fast Delivery</p>
-              <p className="text-sm text-muted-foreground">30-60 mins across Abuja</p>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-card shadow-md">
-              <Shield className="h-7 w-7 text-primary" />
-            </div>
-            <div>
-              <p className="font-semibold text-foreground">Safe Packing</p>
-              <p className="text-sm text-muted-foreground">Hygienic & secure packaging</p>
-            </div>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-card shadow-md">
-              <CreditCard className="h-7 w-7 text-primary" />
-            </div>
-            <div>
-              <p className="font-semibold text-foreground">Easy Payments</p>
-              <p className="text-sm text-muted-foreground">Card, transfer & cash</p>
             </div>
           </div>
         </div>
