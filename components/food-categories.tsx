@@ -10,8 +10,8 @@ const allCategories = [
   // First batch (always visible)
   { id: "main-dishes", name: "Main Dishes", itemCount: 16, image: "/images/categories/main-dishes.jpg" },
   { id: "beverages", name: "Beverages", itemCount: 16, image: "/images/categories/beverages.jpg" },
-  { id: "desserts", name: "Delicious Desserts", itemCount: 16, image: "/images/categories/desserts.jpg" },
-  { id: "vegetables", name: "Hearty Vegetables", itemCount: 16, image: "/images/categories/vegetables.jpg" },
+  // { id: "desserts", name: "Delicious Desserts", itemCount: 16, image: "/images/categories/desserts.jpg" },
+  // { id: "vegetables", name: "Hearty Vegetables", itemCount: 16, image: "/images/categories/vegetables.jpg" },
   
   // Second batch (shown after "Browse More Categories")
   { id: "beef-chicken", name: "Beef & Chicken", itemCount: 16, image: "/images/categories/beef-chicken.jpg" },
