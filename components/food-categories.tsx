@@ -25,10 +25,10 @@ const allCategories = [
   { id: "spicy", name: "Spicy & Zesty Dishes", itemCount: 16, image: "/images/categories/spicy.jpg" },
   { id: "sides", name: "Scrumptious Sides", itemCount: 16, image: "/images/categories/sides.jpg" },
   
-  // Fourth batch (final - shown after second "Load More")
-  { id: "sweet-bites", name: "Sweet Bites Delight", itemCount: 48, image: "/images/categories/sweet-bites.jpg" },
-  { id: "mozzastick", name: "MozzaStick Madness", itemCount: 73, image: "/images/categories/mozzastick.jpg" },
-  { id: "spicy-sub", name: "Spicy Sub Crunch", itemCount: 26, image: "/images/categories/spicy-sub.jpg" },
+  // // Fourth batch (final - shown after second "Load More")
+  // { id: "sweet-bites", name: "Sweet Bites Delight", itemCount: 48, image: "/images/categories/sweet-bites.jpg" },
+  // { id: "mozzastick", name: "MozzaStick Madness", itemCount: 73, image: "/images/categories/mozzastick.jpg" },
+  // { id: "spicy-sub", name: "Spicy Sub Crunch", itemCount: 26, image: "/images/categories/spicy-sub.jpg" },
 ];
 
 // Decorative doodle SVG component
