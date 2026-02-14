@@ -16,7 +16,7 @@ const allCategories = [
   // Second batch (shown after "Browse More Categories")
   { id: "beef-chicken", name: "Beef & Chicken", itemCount: 16, image: "/images/categories/beef-chicken.jpg" },
   { id: "burgers-wraps", name: "Burgers & Wraps", itemCount: 16, image: "/images/categories/burgers-wraps.jpg" },
-  { id: "snacks", name: "Sizzling Snacks", itemCount: 16, image: "/images/categories/snacks.jpg" },
+  // { id: "snacks", name: "Sizzling Snacks", itemCount: 16, image: "/images/categories/snacks.jpg" },
   { id: "salads", name: "Exquisite Salads", itemCount: 16, image: "/images/categories/salads.jpg" },
   
   // Third batch (shown after "Load More")
