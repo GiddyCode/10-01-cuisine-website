@@ -8,10 +8,12 @@ import { useState } from "react";
 // All categories - organized in display order
 const allCategories = [
   // First batch (always visible)
-  { id: "main-dishes", name: "Main Dishes", itemCount: 16, image: "/images/categories/main-dishes.jpg" },
+  { id: "main-dishes", name: "Main Dishes", itemCount: 16, image: "/images/categories/rice-dishes.jpg"},
+  { id: "pasta", name: "Special Pasta & Noodles", itemCount: 16, image: "/images/categories/pasta.jpg" },
   { id: "beverages", name: "Beverages", itemCount: 16, image: "/images/categories/beverages.jpg" },
-  { id: "desserts", name: "Delicious Desserts", itemCount: 16, image: "/images/categories/desserts.jpg" },
-  { id: "vegetables", name: "Hearty Vegetables", itemCount: 16, image: "/images/categories/vegetables.jpg" },
+    { id: "sides", name: "Scrumptious Sides", itemCount: 16, image: "/images/categories/sides.jpg" },
+
+ 
   
   // Second batch (shown after "Browse More Categories")
   { id: "beef-chicken", name: "Beef & Chicken", itemCount: 16, image: "/images/categories/beef-chicken.jpg" },
@@ -21,14 +23,15 @@ const allCategories = [
   
   // Third batch (shown after "Load More")
   { id: "sandwiches", name: "Gourmet Sandwiches", itemCount: 16, image: "/images/categories/sandwiches.jpg" },
-  { id: "pasta", name: "Special Pasta & Noodles", itemCount: 16, image: "/images/categories/pasta.jpg" },
+  
   { id: "spicy", name: "Spicy & Zesty Dishes", itemCount: 16, image: "/images/categories/spicy.jpg" },
-  { id: "sides", name: "Scrumptious Sides", itemCount: 16, image: "/images/categories/sides.jpg" },
   
   // Fourth batch (final - shown after second "Load More")
   { id: "sweet-bites", name: "Sweet Bites Delight", itemCount: 48, image: "/images/categories/sweet-bites.jpg" },
   { id: "mozzastick", name: "MozzaStick Madness", itemCount: 73, image: "/images/categories/mozzastick.jpg" },
   { id: "spicy-sub", name: "Spicy Sub Crunch", itemCount: 26, image: "/images/categories/spicy-sub.jpg" },
+   { id: "desserts", name: "Delicious Desserts", itemCount: 16, image: "/images/categories/desserts.jpg" },
+  // { id: "vegetables", name: "Hearty Vegetables", itemCount: 16, image: "/images/categories/vegetables.jpg" },
 ];
 
 // Decorative doodle SVG component
