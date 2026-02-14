@@ -60,13 +60,11 @@ export function Hero() {
             <div className="mt-8 flex flex-wrap items-center gap-6">
               <Button
                 size="lg"
-                className="rounded-full bg-primary px-8 py-6 text-base font-semibold text-primary-foreground hover:bg-primary/90"
-                asChild
+                className="rounded-full bg-primary px-8 py-6 text-base font-semibold text-white hover:bg-primary/90"
+                onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                <a href="#menu">
-                  Explore Menu
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+                Explore Menu
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
 
               {/* Google Rating */}
