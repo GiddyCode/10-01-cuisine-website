@@ -22,8 +22,8 @@ const allCategories = [
   // Third batch (shown after "Load More")
   { id: "sandwiches", name: "Gourmet Sandwiches", itemCount: 16, image: "/images/categories/sandwiches.jpg" },
   { id: "pasta", name: "Special Pasta & Noodles", itemCount: 16, image: "/images/categories/pasta.jpg" },
-  { id: "spicy", name: "Spicy & Zesty Dishes", itemCount: 16, image: "/images/categories/spicy.jpg" },
-  { id: "sides", name: "Scrumptious Sides", itemCount: 16, image: "/images/categories/sides.jpg" },
+  // { id: "spicy", name: "Spicy & Zesty Dishes", itemCount: 16, image: "/images/categories/spicy.jpg" },
+  // { id: "sides", name: "Scrumptious Sides", itemCount: 16, image: "/images/categories/sides.jpg" },
   
   // // Fourth batch (final - shown after second "Load More")
   // { id: "sweet-bites", name: "Sweet Bites Delight", itemCount: 48, image: "/images/categories/sweet-bites.jpg" },
