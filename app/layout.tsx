@@ -1,7 +1,6 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { DM_Sans, Playfair_Display } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/lib/cart-context'
 import './globals.css'
 
@@ -48,7 +47,6 @@ export default function RootLayout({
         <CartProvider>
           {children}
         </CartProvider>
-        <Analytics />
       </body>
     </html>
   )
