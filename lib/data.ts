@@ -10,6 +10,24 @@ export const categories: Category[] = [
   { id: 'drinks', name: 'Drinks', icon: '🥤' },
 ];
 
+// Mapping from home page food categories to menu categories
+export const categoryMapping: Record<string, string | null> = {
+  'main-dishes': null, // All items
+  'pasta': 'pasta', // Pasta & Noodles
+  'beverages': 'drinks', // Drinks
+  'sides': 'sides', // Scrumptious Sides -> Sides & Extras
+  'beef-chicken': 'proteins', // Beef & Chicken -> Proteins
+  'burgers-wraps': null, // All items (not a specific menu category)
+  'snacks': null, // All items
+  'salads': null, // All items (could be sides)
+  'sandwiches': null, // All items
+  'spicy': null, // All items
+  'sweet-bites': null, // All items (desserts)
+  'mozzastick': null, // All items
+  'spicy-sub': null, // All items
+  'desserts': null, // All items
+};
+
 export const standardPortions: PortionOption[] = [
   { id: 'regular', name: 'Regular', priceModifier: 0 },
   { id: '3-litres', name: '3 Litres (3 proteins)', priceModifier: 0 },

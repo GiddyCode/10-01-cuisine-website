@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, RefreshCw } from "lucide-react";
 import { useState } from "react";
@@ -62,8 +63,8 @@ function CategoryCard({ category, index, isAnimatingIn }: { category: typeof all
   const doodlePos = doodlePositions[index % 4];
 
   return (
-    <a
-      href="#menu"
+    <Link
+      href={`/menu?category=${category.id}`}
       className={`group relative flex flex-col items-center transition-all duration-500 ${
         isAnimatingIn ? "animate-in slide-in-from-bottom-4 fade-in" : ""
       }`}
@@ -100,7 +101,7 @@ function CategoryCard({ category, index, isAnimatingIn }: { category: typeof all
 
       {/* Second decorative doodle */}
       <DoodleIcon position={doodlePositions[(index + 2) % 4]} />
-    </a>
+    </Link>
   );
 }
 

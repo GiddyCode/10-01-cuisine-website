@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Search, ArrowRight, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,7 @@ import { Testimonials } from "@/components/testimonials";
 import { FAQs } from "@/components/faqs";
 import { Newsletter } from "@/components/newsletter";
 import { CustomizeSheet } from "@/components/customize-sheet";
-import { categories, dishes } from "@/lib/data";
+import { categories, dishes, categoryMapping } from "@/lib/data";
 import type { Dish } from "@/lib/types";
 
 function formatPrice(amount: number): string {
@@ -29,10 +30,42 @@ const eventCategories = [
 ];
 
 export default function MenuPage() {
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams?.get("category");
+  
+  // Determine initial category from URL parameter using the mapping
+  const getInitialCategory = () => {
+    if (categoryParam && categoryParam in categoryMapping) {
+      return categoryMapping[categoryParam as keyof typeof categoryMapping];
+    }
+    return null;
+  };
+
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
   const [visibleCount, setVisibleCount] = useState(6);
+  const [hasSetInitialCategory, setHasSetInitialCategory] = useState(false);
+
+  // Auto-select category from URL parameter on mount
+  useEffect(() => {
+    if (!hasSetInitialCategory) {
+      if (categoryParam) {
+        const mappedCategory = getInitialCategory();
+        setSelectedCategory(mappedCategory);
+      }
+      setHasSetInitialCategory(true);
+      
+      // Scroll to menu grid section after a brief delay to allow DOM to update
+      // This happens on page load, whether or not there's a category parameter
+      setTimeout(() => {
+        const menuGridElement = document.getElementById("menu-grid");
+        if (menuGridElement) {
+          menuGridElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  }, [categoryParam, hasSetInitialCategory]);
 
   // Filter dishes based on category and search
   const filteredDishes = useMemo(() => {

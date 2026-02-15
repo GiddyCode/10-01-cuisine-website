@@ -50,7 +50,7 @@ export function MenuSection() {
             className="shrink-0 rounded-full border-2 border-white bg-transparent px-6 py-5 text-sm font-semibold text-white hover:bg-white hover:text-foreground"
             asChild
           >
-            <a href="#full-menu">
+            <a href="/menu">
               Browse More Dishes
               <ArrowRight className="ml-2 h-4 w-4" />
             </a>
