@@ -8,19 +8,16 @@ const eventTypes = [
   {
     id: "social",
     name: "Social Event",
-    packages: "20+ Packages Available",
     image: "/images/catering/social-event.jpg",
   },
   {
     id: "corporate",
     name: "Corporate",
-    packages: "15+ Packages Available",
     image: "/images/catering/corporate.jpg",
   },
   {
     id: "wedding",
     name: "Wedding",
-    packages: "25+ Packages Available",
     image: "/images/catering/wedding.jpg",
   },
 ];
@@ -74,7 +71,6 @@ export function CateringSection() {
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <h3 className="font-serif text-xl font-bold text-white">{event.name}</h3>
-                <p className="mt-1 text-sm text-white/70">{event.packages}</p>
               </div>
 
               {/* Decorative corner */}
